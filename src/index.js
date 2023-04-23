@@ -40,7 +40,11 @@ const createTodoElement = (toDoItem, index) => {
       `;
   li.appendChild(delButton);
   delButton.addEventListener("click", (e) => {
+    e.stopPropagation();
     deleteToDoItem(index);
+  });
+  li.addEventListener("click", (e) => {
+    toggleTodo(index);
   });
   return li;
 };
@@ -55,6 +59,11 @@ const addToDoItem = (text) => {
 
 const deleteToDoItem = (index) => {
   todoItems.splice(index, 1);
+  displayToDoItems();
+};
+
+const toggleTodo = (index) => {
+  todoItems[index].done = !todoItems[index].done;
   displayToDoItems();
 };
 
