@@ -32,11 +32,16 @@ const displayToDoItems = () => {
 
 const createTodoElement = (toDoItem, index) => {
   const li = document.createElement("li");
+  const delButton = document.createElement("button");
+  delButton.innerHTML = "Delete";
   li.innerHTML = `
   <span class="todo ${toDoItem.done ? "done" : ""}"></span>
   <p>${toDoItem.text}</p>
-  <button>Delete</button>
       `;
+  li.appendChild(delButton);
+  delButton.addEventListener("click", (e) => {
+    deleteToDoItem(index);
+  });
   return li;
 };
 
@@ -45,6 +50,11 @@ const addToDoItem = (text) => {
     text,
     done: false,
   });
+  displayToDoItems();
+};
+
+const deleteToDoItem = (index) => {
+  todoItems.splice(index, 1);
   displayToDoItems();
 };
 
