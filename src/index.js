@@ -1,14 +1,23 @@
 import "./style.css";
 
 const ul = document.querySelector("ul");
+const form = document.querySelector("form");
+const input = document.querySelector("form > input");
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const value = input.value;
+  input.value = "";
+  addToDoItem(value);
+});
 
 const todoItems = [
   {
-    text: "je suis une todo",
+    text: "ma 1ere tâche",
     done: true,
   },
   {
-    text: "faire du javascript",
+    text: "ma 2eme tâche",
     done: false,
   },
 ];
@@ -26,8 +35,17 @@ const createTodoElement = (toDoItem, index) => {
   li.innerHTML = `
   <span class="todo ${toDoItem.done ? "done" : ""}"></span>
   <p>${toDoItem.text}</p>
+  <button>Delete</button>
       `;
   return li;
+};
+
+const addToDoItem = (text) => {
+  todoItems.push({
+    text,
+    done: false,
+  });
+  displayToDoItems();
 };
 
 displayToDoItems();
